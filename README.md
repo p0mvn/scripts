@@ -25,8 +25,9 @@ Tracing:
 ./perf-trace osmosisd
 ```
 
-Off-CPU profiling:
+Off-CPU profiling (WIP):
 ```bash
+./perf-offcpu
 ```
 
 
