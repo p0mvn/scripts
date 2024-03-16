@@ -1,16 +1,35 @@
 #!/bin/bash
-    
-perf record -F 49 -a -g --sleep 10; perf script --header out.stacks
 
-# Check if the first argument is 1
-if [ "$1" -eq 1 ]; then
-    # Clone the FlameGraph repository if it doesn't already exist
-    if [ ! -d "FlameGraph" ]; then
-        git clone https://github.com/brendangregg/FlameGraph
-    else
-        echo "FlameGraph directory already exists, skipping clone..."
-    fi
-    cd FlameGraph
+# Check if two arguments are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 [sampling rate] [sleep duration]"
+    exit 1
 fi
 
-./stackcollapse-perf.pl < ../out.stacks | ./flamegraph.pl --hash > out.svg
+# Assign the first argument to RATE and the second to DURATION
+# Recommended 49 and 10
+RATE=$1
+DURATION=$2
+    
+perf record -F $RATE -a -g -- sleep $DURATION; perf script --header > out.stacks
+
+
+
+
+# Clone the FlameGraph repository if it doesn't already exist
+if [ ! -d "FlameGraph" ]; then
+    git clone https://github.com/brendangregg/FlameGraph
+else
+    echo "FlameGraph directory already exists, skipping clone..."
+fi
+
+cd FlameGraph
+
+
+# # Check if the first argument is 1
+# if [ "$1" -eq 1 ]; then
+
+
+# fi
+
+./stackcollapse-perf.pl < ../out.stacks | ./flamegraph.pl --hash > ../out.svg

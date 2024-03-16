@@ -1,1 +1,4 @@
+# Perf-viz script
 FlameGraph
+out.*
+perf.data*
