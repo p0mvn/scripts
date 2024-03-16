@@ -1,4 +1,6 @@
 # Perf-viz script
 FlameGraph
-out.*
+*.svg
 perf.data*
+out.stacks
+

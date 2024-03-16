@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if two arguments are provided
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 [sampling rate] [sleep duration] [process name]"
+    exit 1
+fi
+
+# Assign the first argument to RATE and the second to DURATION
+# Recommended 49 and 10
+RATE=$1
+DURATION=$2
+PROCESS_NAME=$3
+
+# Remember to build the binary with debug symbols
+perf record -F $RATE --call-graph dwarf -e cycles  --switch-events --sample-cpu -p $(pidof $PROCESS_NAME) -- sleep $DURATION; perf script --header > out.stacks
+
+
+# Clone the FlameGraph repository if it doesn't already exist
+if [ ! -d "FlameGraph" ]; then
+    git clone https://github.com/brendangregg/FlameGraph
+else
+    echo "FlameGraph directory already exists, skipping clone..."
+fi
+
+./FlameGraph/stackcollapse-perf.pl < out.stacks | ./FlameGraph/flamegraph.pl --hash > cpu.svg

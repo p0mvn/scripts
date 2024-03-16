@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Check if two arguments are provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 [process name]"
+    exit 1
+fi
+
+# Summarizes syscalls
+# Change to -e [event_name] for a specific event
+perf trace -s -p $(pidof of $1)

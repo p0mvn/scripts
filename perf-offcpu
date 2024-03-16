@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+# Clone the FlameGraph repository if it doesn't already exist
+if [ ! -d "FlameGraph" ]; then
+    git clone https://github.com/brendangregg/FlameGraph
+else
+    echo "FlameGraph directory already exists, skipping clone..."
+fi
+
+
+
+./FlameGraph/offcputime -f 5 | ./FlameGraph/flamegraph.pl --bgcolors=blue --title="Off-CPU Time Flame Graph" > offcpu.svg
