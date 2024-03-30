@@ -7,9 +7,19 @@ some documentation around them.
 
 - [BCC Tools](https://github.com/iovisor/bcc)
 
-```bash
-sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
-```
+### Installation Steps From Source
+
+- have updated your system kernel (sudo apt update && sudo apt upgrade)
+
+- purge the ubuntu-packed version of the package and its dependencies:  (sudo apt purge bpfcc-tools && sudo apt autoremove)
+
+- install dependencies for compiling: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-build-dependencies-1
+
+- compile from sources: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-1
+
+- call the tools with python3 /usr/share/bcc/tools/offcputime or python3 /usr/share/bcc/tools/opensnoop (alternative, install python-is-python3 package with sudo apt install python-is-python3)
+
+
 
 ## Running
 
