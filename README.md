@@ -33,7 +33,7 @@ CPU profiling:
 ### Page faults
 ```bash
 # [process-name] [duration-secs]
-./perf-pagefault osmosisd 15
+./perf-page-fault osmosisd 15
 ```
 
 **Focus**: Page fault profiling focuses on understanding and analyzing page faults in an application. A page fault occurs when a program tries to access a section of memory that is not currently in physical RAM but instead has been swapped out to disk or is yet to be loaded.
