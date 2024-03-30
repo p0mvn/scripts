@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check if pid argument is provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 [process name] [duration_secs]"
+    exit 1
+fi
+
+PROCESS_NAME=$1
+DURATION=$2
+
+# Summarizes syscalls
+# Change to -e [event_name] for a specific event
+perf record -e page-faults -g -p $(pidof $PROCESS_NAME) -- sleep $DURATION; perf script --header > out.stacks
+
+# Clone the FlameGraph repository if it doesn't already exist
+if [ ! -d "FlameGraph" ]; then
+    git clone https://github.com/brendangregg/FlameGraph
+else
+    echo "FlameGraph directory already exists, skipping clone..."
+fi
+
+./FlameGraph/stackcollapse-perf.pl < out.stacks | ./FlameGraph/flamegraph.pl --hash --bgcolor=green --count=pages --title "Page Fault Flame Graph" > page_fault.svg
