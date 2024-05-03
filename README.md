@@ -69,7 +69,11 @@ CPU profiling:
 ```bash
 ./host-pid [container-pid]
 ```
+#### Execute Command In Namespace
 
+```bash
+./nsenter [container-pid] [command]
+```
 
 ## Performance Resources
 

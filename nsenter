@@ -1,0 +1,10 @@
+#!/bin/bash
+# Usage: ./nsenter.sh <PID> <CMD>
+# Example: ./nsenter.sh 1234 top
+# Executes a command in a specific PID namespace
+
+
+PID=$1
+CMD=$2 
+
+nsenter -t $PID -m -p $CMD
