@@ -1,0 +1,7 @@
+# Finds container pid from host pid
+
+#!/bin/bash
+
+HOST_PID = $1
+
+grep NSpid /proc/$HOST_PID/status

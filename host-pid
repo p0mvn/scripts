@@ -1,0 +1,17 @@
+# Finds host pid from container pid
+# by searching for the container pid in /proc/*/status
+
+#!/bin/bash
+
+CONTAINER_PID=$1
+
+HOST_PID=$(awk '$1 == "NSpid:" && $3 == $CONTAINER_PID { print $2 }' /proc/*/status)
+
+echo $HOST_PID
+
+# Since many host IDs can have overlapping container PIDs, this script may return multiple host PIDs
+
+# To validate, you can use the following command:
+# ls -lh /proc/$HOST_PID/ns/pid
+# ls -lh /proc/$CONTAINER_PID/ns/pid
+

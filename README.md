@@ -56,6 +56,20 @@ CPU profiling:
 
 **Performance Optimization**: Both types of profiling are essential for performance optimization but target different types of performance issues. Heap profiling is used to reduce memory consumption and leaks, while page fault profiling is used to improve access patterns and reduce reliance on disk access for memory.
 
+### Containers
+
+#### Find Container PID by Host PID
+
+```bash
+./container-pid [host-pid]
+```
+
+#### Find Host PID by Container PID
+
+```bash
+./host-pid [container-pid]
+```
+
 
 ## Performance Resources
 
